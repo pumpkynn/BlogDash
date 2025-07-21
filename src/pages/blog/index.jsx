@@ -106,6 +106,7 @@ const Blog = () => {
       size: newPageSize,
     });
   };
+  const [form] = Form.useForm();
   const [isUpdate, setIsUpdate] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenUpdateModal = (row) => {
@@ -118,7 +119,6 @@ const Blog = () => {
     message.success("删除成功");
     getBlogList();
   };
-  const [form] = Form.useForm();
   const handleOpenAddModal = () => {
     form.resetFields();
     setIsUpdate(false);
@@ -128,8 +128,11 @@ const Blog = () => {
     return `共 ${total} 条`;
   };
   const handleAddUpdateBlog = async (blogForm) => {
+    console.log('提交的博客数据:', blogForm);
     const res = await blogApi.saveBlog(blogForm);
+    console.log('保存结果:', res);
     if (res.data.code == 200) {
+      message.success(isUpdate ? "更新成功" : "添加成功");
       form.resetFields();
       setIsModalOpen(false);
       getBlogList();

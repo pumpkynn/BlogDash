@@ -73,7 +73,8 @@ const saveBlog = (data) => {
         if (index !== -1) {
           mockBlogs[index] = {
             ...mockBlogs[index],
-            createTime: new Date().toISOString.split('T')[0]
+            ...data,
+            createTime: new Date().toISOString().split('T')[0]
           };
         }
       } else {
